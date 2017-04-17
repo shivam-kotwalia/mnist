@@ -1,16 +1,16 @@
 from flask import Flask, render_template, request
 import base64
 from PIL import Image
-import tefla.predict as predict_mnist
 import os
 import services
 import shutil
 import uuid
 import numpy as np
-
+#import tefla.predict as predict_mnist
+import tefla.tefla.predict as predict_mnist #for HEROKU
 
 app = Flask(__name__)
-mnist_weights = "services/weights/model-epoch-30.ckpt"
+mnist_weights = "./services/weights/model-epoch-30.ckpt"
 
 @app.route("/")
 def mainpage(methods=["GET", "POST"]):

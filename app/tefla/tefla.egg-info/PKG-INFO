@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: tefla
+Version: 0.1
+Summary: Simple end-to-end deep learning with tensorflow. Datasets, data-augmentation, models, training, prediction, and metrics
+Home-page: https://github.com/litan/tefla
+Author: Tefla contributors
+Author-email: pant.lalit@gmail.com
+License: MIT
+Description: UNKNOWN
+Keywords: tensorflow,deeplearning
+Platform: UNKNOWN

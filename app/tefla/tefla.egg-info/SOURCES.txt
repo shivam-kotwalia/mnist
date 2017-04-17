@@ -1,0 +1,14 @@
+setup.cfg
+tefla/__init__.py
+tefla/convert.py
+tefla/metrics.py
+tefla/model_info.py
+tefla/predict.py
+tefla/predict_withf.py
+tefla/resize.py
+tefla/train.py
+tefla/train_withf.py
+tefla.egg-info/PKG-INFO
+tefla.egg-info/SOURCES.txt
+tefla.egg-info/dependency_links.txt
+tefla.egg-info/top_level.txt
