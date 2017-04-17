@@ -11,7 +11,7 @@ print(tefla_path)
 
 
 #comment this if ruuning locally
-subprocess.check_output(["pip", "install" ,"-e", tefla_path])
+subprocess.check_output(["pip", "install","-e", tefla_path])
 import services
 from tefla import tefla as predict_mnist
 
