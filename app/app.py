@@ -7,7 +7,6 @@ import services
 import shutil
 import uuid
 import numpy as np
-import skimage
 
 
 app = Flask(__name__)
