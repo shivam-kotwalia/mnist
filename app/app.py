@@ -6,7 +6,12 @@ from PIL import Image
 from flask import Flask, render_template, request
 import subprocess
 
-subprocess.check_output(["pip", "install" ,"-e", "tefla/."])
+tefla_path = os.path.join(os.getcwd(), 'app', 'tefla')
+print(tefla_path)
+
+
+#comment this if ruuning locally
+subprocess.check_output(["pip", "install" ,"-e", tefla_path])
 import services
 from tefla import tefla as predict_mnist
 
