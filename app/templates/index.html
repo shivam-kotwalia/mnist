@@ -1,0 +1,77 @@
+<html>
+<head>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/drawingboard.min.js"></script>
+    <link rel="stylesheet" href="../static/drawingboard.min.css">
+    
+</head>
+<body>
+<center>
+<h1>MNIST REALIZATION</h1>
+<p> Canvas Board </p>
+
+<div id="Board5"></div>
+<input type="submit" name="button_predict" id="button_predict" onClick="downloadimage()"/>
+<br/>
+    <label id="predict_result"></label>
+<style>
+    #Board5{
+        width: 200px;
+        height: 200px;
+    }
+	#button_predict{
+        width: 100px;
+        height: 20px;
+    }
+</style>
+
+<script>
+var board5 = new DrawingBoard.Board('Board5', {
+	background: "#000000",
+	color: "#ffffff",
+	size: 15,
+	controls: [
+		{ Navigation: { back: true, forward: true } },
+	],
+	webStorage: 'false'
+});
+board5.addControl('Download');
+
+function downloadimage(){
+//We dont want to download the Image rather 
+//document.getElementsByClassName("drawing-board-control-download-button")[0].click();
+var final_image = board5.canvas.toDataURL("image/octet-stream");
+console.log(final_image)
+document.getElementById("button_predict").disabled = true;
+var url = "/predict?image="+ final_image
+
+//    $.get(url ,function (response) {
+//        console.log(response)
+//    })
+ $.ajax({url: "/predict",
+     type: "POST", data: JSON.stringify({'image': final_image}),
+      contentType: 'application/json',
+     success: function(result){
+$('#predict_result').text("prediction is : "+result)
+document.getElementById("button_predict").disabled = false;
+console.log(result)
+    }});
+
+};
+
+
+
+
+</script>
+
+<br/>
+
+<style>
+.drawing-board-control-download-button
+{
+display: none;
+}
+</style>
+</center>
+</body>
+</html>

@@ -1,0 +1,2 @@
+import mnist_model
+import mnist_cnf
