@@ -6,11 +6,13 @@ import services
 import shutil
 import uuid
 import numpy as np
-import tefla.predict as predict_mnist
-#import tefla.tefla.predict as predict_mnist #for HEROKU
+#import tefla.predict as predict_mnist
+#for HEROKU
+import tefla.tefla.predict as predict_mnist
 
 app = Flask(__name__)
 mnist_weights = os.path.join(os.getcwd(),"services/weights/model-epoch-30.ckpt")
+print(mnist_weights)
 
 @app.route("/")
 def mainpage(methods=["GET", "POST"]):

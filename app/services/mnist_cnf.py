@@ -2,9 +2,15 @@ from __future__ import division, print_function, absolute_import
 
 import tensorflow as tf
 
-from tefla.core.lr_policy import StepDecayPolicy
-from tefla.da.standardizer import SamplewiseStandardizer
-from tefla.utils import util
+# from tefla.core.lr_policy import StepDecayPolicy
+# from tefla.da.standardizer import SamplewiseStandardizer
+# from tefla.utils import util
+
+#for HEROKU ..tefla.tefla
+
+from ..tefla.tefla.core.lr_policy import StepDecayPolicy
+from ..tefla.tefla.da.standardizer import SamplewiseStandardizer
+from ..tefla.tefla.utils import util
 
 cnf = {
     'name': __name__.split('.')[-1],
