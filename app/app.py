@@ -11,7 +11,12 @@ import numpy as np
 import tefla.tefla.predict as predict_mnist
 
 app = Flask(__name__)
-mnist_weights = os.path.join(os.getcwd(),"services/weights/model-epoch-30.ckpt")
+#if running from wsgi
+mnist_weights = os.path.join(os.getcwd(),"app/services/weights/model-epoch-30.ckpt")
+
+#if running from app
+#mnist_weights = os.path.join(os.getcwd(),"services/weights/model-epoch-30.ckpt")
+
 print(mnist_weights)
 
 @app.route("/")
