@@ -4,17 +4,8 @@ import uuid
 import numpy as np
 from PIL import Image
 from flask import Flask, render_template, request
-import subprocess
-
-tefla_path = os.path.join(os.getcwd(), 'app', 'tefla')
-print(tefla_path)
-
-
-#comment this if ruuning locally
-subprocess.check_output(["pip", "install","-e", tefla_path])
 import services
-from tefla import tefla as predict_mnist
-
+import tefla.predict as predict_mnist
 
 app = Flask(__name__)
 #if running from wsgi
@@ -23,7 +14,7 @@ mnist_weights = os.path.join(os.getcwd(),"app/services/weights/model-epoch-30.ck
 #if running from app
 #mnist_weights = os.path.join(os.getcwd(),"services/weights/model-epoch-30.ckpt")
 
-print(mnist_weights)
+#print(mnist_weights)
 
 @app.route("/")
 def mainpage(methods=["GET", "POST"]):
