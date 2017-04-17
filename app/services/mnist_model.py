@@ -1,14 +1,8 @@
 from __future__ import division, print_function, absolute_import
 
-#from tefla.core.layer_arg_ops import common_layer_args, make_args, end_points
-#from tefla.core.layers import dropout, prelu
-#from tefla.core.layers import input, conv2d, fully_connected, max_pool, softmax
-
-#for HEROKU
-
-from ..tefla.tefla.core.layer_arg_ops import common_layer_args, make_args, end_points
-from ..tefla.tefla.core.layers import dropout, prelu
-from ..tefla.tefla.core.layers import input, conv2d, fully_connected, max_pool, softmax
+from tefla.core.layer_arg_ops import common_layer_args, make_args, end_points
+from tefla.core.layers import dropout, prelu
+from tefla.core.layers import input, conv2d, fully_connected, max_pool, softmax
 
 # sizes - (width, height)
 image_size = (28, 28)

@@ -1,14 +1,15 @@
-from flask import Flask, render_template, request
 import base64
-from PIL import Image
 import os
-import services
-import shutil
 import uuid
 import numpy as np
-#import tefla.predict as predict_mnist
-#for HEROKU
-import tefla.tefla.predict as predict_mnist
+from PIL import Image
+from flask import Flask, render_template, request
+import services
+import subprocess
+
+subprocess.check_output(["pip", "install" ,"-e", "tefla/."])
+
+from tefla import tefla as predict_mnist
 
 app = Flask(__name__)
 #if running from wsgi
