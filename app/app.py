@@ -4,12 +4,12 @@ import uuid
 import numpy as np
 from PIL import Image
 from flask import Flask, render_template, request
-import services
 import subprocess
 
 subprocess.check_output(["pip", "install" ,"-e", "tefla/."])
-
+import services
 from tefla import tefla as predict_mnist
+
 
 app = Flask(__name__)
 #if running from wsgi
