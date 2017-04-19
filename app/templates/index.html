@@ -1,27 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
 <html>
 <head>
+    <meta charset="UTF-8">
     <script type="text/javascript" src="../static/jquery.js"></script>
     <script type="text/javascript" src="../static/drawingboard.min.js"></script>
     <link rel="stylesheet" href="../static/drawingboard.min.css">
-    
+    <title>MNIST Hello Wrold to Deep Learning By Shivam</title>
 </head>
-<body>
+
+<body style="height: auto; width: auto; ">
+                                        <!--background-image: url(../static/main.png);-->
+                                        <!--background-attachment:fixed;-->
+                                        <!--background-repeat: no-repeat;-->
+                                        <!--background-size: cover;">-->
 <center>
-<h1>MNIST REALIZATION</h1>
-<p> Canvas Board </p>
+    <div style="width: auto; height: auto;">
+        <h1 style="font-size: 250%;"><u>MNIST: Hello World for Deep Learning</u></h1>
+
+        <h2 style="font-size: 195%"> Draw your Digit </h2>
 
 <div id="Board5"></div>
-<input type="submit" name="button_predict" id="button_predict" onClick="downloadimage()"/>
-<br/>
-    <label id="predict_result"></label>
+    <br/>
+        <button id="button_predict" style="font-size: 150%" onClick="processimage()">
+            Predict
+        </button>
+<br/><br/>
+    <h3 id="predict_result"></h3>
 <style>
     #Board5{
-        width: 200px;
-        height: 200px;
+        width: 450px;
+        height: 450px;
     }
 	#button_predict{
-        width: 100px;
-        height: 20px;
+        width: 120px;
+        height: 35px;
+    }
+    .drawing-board-control-download-button {
+        display: none;
+    }
+    .drawing-board-control-navigation-back{
+        width: 60px;
+        height: 60px;
+    }
+    .drawing-board-control-navigation-forward{
+        width: 60px;
+        height: 60px;
+    }
+    .drawing-board-control-navigation-reset{
+        width: 60px;
+        height: 60px;
     }
 </style>
 
@@ -29,49 +57,36 @@
 var board5 = new DrawingBoard.Board('Board5', {
 	background: "#000000",
 	color: "#ffffff",
-	size: 15,
+	size: 20,
 	controls: [
+         'Color' ,
+	    { Size: { type: "dropdown", dropdownValues: [30, 40, 50] } },
 		{ Navigation: { back: true, forward: true } },
+        { DrawingMode: { filler: false } },
 	],
 	webStorage: 'false'
 });
 board5.addControl('Download');
 
-function downloadimage(){
-//We dont want to download the Image rather 
-//document.getElementsByClassName("drawing-board-control-download-button")[0].click();
-var final_image = board5.canvas.toDataURL("image/octet-stream");
-console.log(final_image)
-document.getElementById("button_predict").disabled = true;
-var url = "/predict?image="+ final_image
-
-//    $.get(url ,function (response) {
-//        console.log(response)
-//    })
- $.ajax({url: "/predict",
-     type: "POST", data: JSON.stringify({'image': final_image}),
-      contentType: 'application/json',
-     success: function(result){
-$('#predict_result').text("prediction is : "+result)
-document.getElementById("button_predict").disabled = false;
-console.log(result)
-    }});
-
-};
-
-
-
-
+function processimage(){
+    //We dont want to download the Image rather
+    //document.getElementsByClassName("drawing-board-control-download-button")[0].click();
+    var final_image = board5.canvas.toDataURL("image/octet-stream");
+    //console.log(final_image)
+    document.getElementById("button_predict").disabled = true;
+    $.ajax({url: "/predict",
+        type: "POST", data: JSON.stringify({'image': final_image}),
+        contentType: 'application/json',
+        success: function(result){
+            $('#predict_result').text("I think you drew : " + result)
+            document.getElementById("button_predict").disabled = false;
+            console.log("Hi Dev, you probably drew : " + result)
+        }});
+    };
 </script>
-
-<br/>
-
-<style>
-.drawing-board-control-download-button
-{
-display: none;
-}
-</style>
+        <br/>
+    <footer style="font-size: 150%"> <b> &lt;love&gt; Made by Shivam on Heroku &lt;/love&gt; </b> </footer>
+    </div>
 </center>
 </body>
 </html>

@@ -1,13 +1,11 @@
-import subprocess
-import os
-import sys
-tefla_path = os.path.join(os.getcwd(), 'app', 'tefla')
-print(tefla_path)
+import subprocess, os, sys
 
-#comment this if ruuning locally
+
+tefla_path = os.path.join(os.getcwd(), 'app', 'tefla')
+
+# comment this if running locally
 subprocess.check_output(["pip", "install","-e", tefla_path])
 sys.path.append(tefla_path)
-print(sys.path)
 
 from app.app import app
 

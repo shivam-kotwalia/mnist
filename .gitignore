@@ -3,3 +3,7 @@ weights/*
 *.pkl
 data/*
 MNIST_data/*
+mnist_save_images.py
+mnist_save_images2.py
+train.txt
+.idea/*

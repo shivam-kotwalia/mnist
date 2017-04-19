@@ -1,54 +1,57 @@
-import base64
-import os
-import uuid
+import base64, os, uuid, services
 import numpy as np
 from PIL import Image
 from flask import Flask, render_template, request
-import services
 import tefla.predict as predict_mnist
+from config import Config
 
 app = Flask(__name__)
-#if running from wsgi
-mnist_weights = os.path.join(os.getcwd(),"app/services/weights/model-epoch-30.ckpt")
+conf = Config()
 
-#if running from app
-#mnist_weights = os.path.join(os.getcwd(),"services/weights/model-epoch-30.ckpt")
+mnist_weights = conf.mnist_weights
 
-#print(mnist_weights)
 
 @app.route("/")
-def mainpage(methods=["GET", "POST"]):
+def mainpage():
     if request.method == "POST":
         print(request.form)
     if request.method == "GET":
         return render_template("index.html")
 
-@app.route("/predict" ,methods=['GET', 'POST'])
+
+@app.route("/predict", methods=['GET', 'POST'])
 def predict():
     if request.method == "POST":
-        image_folder = os.path.join(os.getcwd(), "images")
-        image_name = request.json['image']
-        image_name = image_name.split(",")[1]
-        # print(image_name)
-        fh = open("one.png", "wb")
-        fh.write(base64.b64decode(image_name))
-        fh.close()
+        image_data64 = request.json['image']
+        image_data64 = image_data64.split(",")[1]
         image_filename = str(uuid.uuid4()) + ".tiff"
 
-        with Image.open("one.png").convert('L') as image:
+        image = open(image_filename, "wb")
+        image.write(base64.b64decode(image_data64))
+        image.close()
+
+        with Image.open(image_filename).convert('L') as image:
             image = image.resize([28, 28])
             img = Image.fromarray(np.uint8(image))
             img.save(image_filename)
 
         image_path_array = np.array([image_filename])
-        predictions = predict_mnist.predict(model=services.mnist_model.model, model_def=services.mnist_model, output_layer ="predictions", cnf = services.mnist_cnf.cnf, weights_from=mnist_weights,
-                                                                                                                           images = image_path_array, sync = True, convert = False, image_size = 28, predict_type = "1_crop")
-        os.remove(image_filename)
-        #print(predictions)
-        predict_ = np.argmax(predictions)
-        print(predict_)
+        predictions = predict_mnist.predict(model=services.mnist_model.model,
+                                            model_def=services.mnist_model,
+                                            output_layer="predictions",
+                                            cnf=services.mnist_cnf.cnf,
+                                            weights_from=mnist_weights,
+                                            images=image_path_array,
+                                            sync=True,
+                                            convert=False,
+                                            image_size=28,
+                                            predict_type="1_crop")
+        prediction = np.argmax(predictions)
 
-    return str(predict_)
+        #Cleaning Images
+        os.remove(image_filename)
+
+    return str(prediction)
 
 if __name__ == "__main__":
     app.run(debug=True)
