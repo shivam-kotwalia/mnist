@@ -115,6 +115,7 @@ def main(directory, convert_directory, target_size, extension):
     pool.close()
 
     print('done')
+exit
 
 
 if __name__ == '__main__':

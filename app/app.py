@@ -8,8 +8,6 @@ from config import Config
 app = Flask(__name__)
 conf = Config()
 
-mnist_weights = conf.mnist_weights
-
 
 @app.route("/")
 def mainpage():
@@ -23,6 +21,10 @@ def mainpage():
 def predict():
     if request.method == "POST":
         image_data64 = request.json['image']
+        if request.json['language'] == 'english':
+            weights = conf.mnist_weights
+        else:
+            weights = conf.devnagri_weights
         image_data64 = image_data64.split(",")[1]
         image_filename = str(uuid.uuid4()) + ".tiff"
 
@@ -40,13 +42,14 @@ def predict():
                                             model_def=services.mnist_model,
                                             output_layer="predictions",
                                             cnf=services.mnist_cnf.cnf,
-                                            weights_from=mnist_weights,
+                                            weights_from=weights,
                                             images=image_path_array,
                                             sync=True,
                                             convert=False,
                                             image_size=28,
                                             predict_type="1_crop")
         prediction = np.argmax(predictions)
+        print(prediction)
 
         #Cleaning Images
         os.remove(image_filename)

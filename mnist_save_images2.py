@@ -11,7 +11,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=False)
 
-width = 28cd ../
+width = 28
 height = 28
 
 train_images = mnist[0].images.reshape(-1, height, width)

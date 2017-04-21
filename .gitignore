@@ -1,9 +1,10 @@
 weights/*
 *.log
 *.pkl
-data/*
+data_mnist/*
 MNIST_data/*
-mnist_save_images.py
-mnist_save_images2.py
-train.txt
-.idea/*
+devnagri_data/*
+data_devnagri/*
+tefla-summary-devnagri/*
+*.pyc
+app/*.pyc
