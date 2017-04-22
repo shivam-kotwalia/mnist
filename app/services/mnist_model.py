@@ -22,7 +22,7 @@ def model(is_training, reuse):
     x = dropout(x, drop_p=0.25, name='dropout1', **common_args)
     x = fully_connected(x, n_output=128, name='fc1', **fc_args)
     x = dropout(x, drop_p=0.5, name='dropout2', **common_args)
-    logits = fully_connected(x, n_output=10, name="logits", **logit_args)
+    logits = fully_connected(x, n_output=20, name="logits", **logit_args)
     predictions = softmax(logits, name='predictions', **common_args)
 
     return end_points(is_training)

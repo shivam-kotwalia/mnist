@@ -1,10 +1,8 @@
-weights/*
-*.log
-*.pkl
 data_mnist/*
 MNIST_data/*
 devnagri_data/*
 data_devnagri/*
 tefla-summary-devnagri/*
-*.pyc
+data_all/*
 app/*.pyc
+app/services/*.pyc

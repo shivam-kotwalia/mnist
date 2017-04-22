@@ -21,12 +21,13 @@ cnf = {
         'allow_stretch': True,
     },
     'standardizer': SamplewiseStandardizer(clip=6),
-    'num_epochs': 30,
+    'num_epochs': 60,
     'summary_every': 5,
     'lr_policy': StepDecayPolicy(
         schedule={
             0: 0.001,
             15: 0.0001,
+			30: 0.00005,
         }
     ),
     'optimizer': tf.train.AdamOptimizer(),
