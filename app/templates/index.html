@@ -16,55 +16,53 @@
                                         <!--background-size: cover;">-->
 <center>
     <div style="width: auto; height: auto;">
-        <h1 style="font-size: 180%;"><u>Hello World for Deep Learning</u></h1>
-        <h2 style="font-size: 120%"> Draw your Digit </h2>
-
-         <!--<input type="radio" name="language" value="english" checked> English
-         <input type="radio" name="language" value="hindi"> Hindi<br><br>-->
+        <h1 style="font-size: 150%;"><u>Numerical Recognization by Deep Learning</u></h1>
+        <h2 style="font-size: 100%"> Draw your Digit </h2>
 
 <div id="Board5"></div>
     <br/>
-        <button id="button_predict" style="font-size: 120%" onClick="processimage()">
+        <button id="button_predict" style="font-size: 100%" onClick="processimage()">
             Predict
         </button>
 <br/><br/>
     <h3 id="predict_result" style="font-size: 120%"></h3>
 <style>
     #Board5{
-        width: 350px;
-        height: 350px;
-    }
-	#button_predict{
-        width: 120px;
-        height: 35px;
+        width: 250px;
+        height: 250px;
     }
     .drawing-board-control-download-button {
         display: none;
     }
-    .drawing-board-control-navigation-back{
-        width: 50px;
-        height: 50px;
-    }
-    .drawing-board-control-navigation-forward{
-        width: 50px;
-        height: 50px;
-    }
-    .drawing-board-control-navigation-reset{
-        width: 50px;
-        height: 50px;
-    }
+
+	/*#button_predict{*/
+        /*width: 120px;*/
+        /*height: 35px;*/
+    /*}*/
+    /*.drawing-board-control-navigation-back{*/
+        /*width: 50px;*/
+        /*height: 50px;*/
+    /*}*/
+    /*.drawing-board-control-navigation-forward{*/
+        /*width: 50px;*/
+        /*height: 50px;*/
+    /*}*/
+    /*.drawing-board-control-navigation-reset{*/
+        /*width: 50px;*/
+        /*height: 50px;*/
+    /*}*/
 </style>
 
 <script>
 var board5 = new DrawingBoard.Board('Board5', {
 	background: "#000000",
 	color: "#ffffff",
-	size: 30,
+	size: 25,
 	controls: [
          'Color' ,
-	    { Size: { type: "dropdown", dropdownValues: [30, 40, 50] } },
+	    { Size: { type: "dropdown", dropdownValues: [20, 25, 30] } },
 		{ Navigation: { back: true, forward: true } },
-        { DrawingMode: { filler: false } },
+//        { DrawingMode: { filler: false } },
 	],
 	webStorage: 'false'
 });
@@ -73,17 +71,13 @@ board5.addControl('Download');
 function processimage(){
     //We dont want to download the Image rather
     //document.getElementsByClassName("drawing-board-control-download-button")[0].click();
-    // var language = $("input[type='radio'][name='language']:checked").val();
-    //console.log(language)
     var final_image = board5.canvas.toDataURL("image/octet-stream");
-    //console.log(final_image)
     document.getElementById("button_predict").disabled = true;
     $.ajax({url: "/predict",
         type: "POST", data: JSON.stringify({'image': final_image}),
         contentType: 'application/json',
-        error: (function(){console.log('Internal Server Error')}),
+        error: (function(){$('#predict_result').text("Server is under Load, Please try again.")}),
         success: function(result){
-            //console.log("Prediction is " + result[0] + "Language is " + result[1]);
             $('#predict_result').text("I think you drew : " + result[0] + " in " + result[1])
             document.getElementById("button_predict").disabled = false;
             console.log("Hi Dev, you probably drew " + result[0] + " in " + result[1])
