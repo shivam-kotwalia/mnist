@@ -7,51 +7,99 @@
     <script type="text/javascript" src="../static/drawingboard.min.js"></script>
     <link rel="stylesheet" href="../static/drawingboard.min.css">
     <title>Numerical Recognization </title>
+<script>
+    var x = 0;
+</script>
 </head>
 
+
 <body>
-                                        <!--background-image: url(../static/main.png);-->
-                                        <!--background-attachment:fixed;-->
-                                        <!--background-repeat: no-repeat;-->
-                                        <!--background-size: cover;">-->
 <center>
-    <div style="width: auto; height: auto;">
-        <h1 style="font-size: 150%;"><u>Numerical Recognization by Deep Learning</u></h1>
-        <h2 style="font-size: 100%"> Draw your Digit </h2>
+        <h1 style="font-size: 150%;"><u>Numerical Recognization <br/>by Deep Learning</u></h1>
+        <h2 style="font-size: 100%"> Draw your Digit (English/Hindi)<br/> on Canvas</h2>
 
-<div id="Board5"></div>
-    <br/>
-        <button id="button_predict" style="font-size: 100%" onClick="processimage()">
-            Predict
-        </button>
-<br/><br/>
-    <h3 id="predict_result" style="font-size: 120%"></h3>
-<style>
-    #Board5{
-        width: 250px;
-        height: 250px;
-    }
-    .drawing-board-control-download-button {
-        display: none;
-    }
+<table>
+    <tr>
+        <td>
+            <center><b>"Hindi"</b></center>
+            <table >
+                <tr>
+                    <td><img id="display_image_hindi_1" src="../static/display_images/hindi/1/0.png"/></td>
+                    <td ><img id="display_image_hindi_2" src="../static/display_images/hindi/2/0.png"/></td>
+                    <td ><img id="display_image_hindi_3" src="../static/display_images/hindi/3/0.png"/></td>
+                    </tr>
+                <tr>
+                    <td><img id="display_image_hindi_4" src="../static/display_images/hindi/4/0.png"/></td>
+                    <td><img id="display_image_hindi_5" src="../static/display_images/hindi/5/0.png"/></td>
+                    <td><img id="display_image_hindi_6" src="../static/display_images/hindi/6/0.png"/></td>
+                </tr>
+                <tr>
+                    <td><img id="display_image_hindi_7" src="../static/display_images/hindi/7/0.png"/></td>
+                    <td><img id="display_image_hindi_8" src="../static/display_images/hindi/8/0.png"/></td>
+                    <td><img id="display_image_hindi_9" src="../static/display_images/hindi/9/0.png"/></td>
+                </tr>
+                <tr>
+                   <td></td>
+                   <td><img id="display_image_hindi_0" src="../static/display_images/hindi/0/0.png"/></td>
+                   <td></td>
+                </tr>
+            </table>
+        </td>
+        <td></td>
+        <td>
+            <div id="Board5" style="width:260px; height: 260px;"></div>
+        </td>
+        <td></td>
+        <td>
+            <center><b>"English"</b></center>
+            <table>
+                <tr>
+                    <td><img id="display_image_eng_1" src="../static/display_images/english/1/0.png"/></td>
+                    <td ><img id="display_image_eng_2" src="../static/display_images/english/2/0.png"/></td>
+                    <td ><img id="display_image_eng_3" src="../static/display_images/english/3/0.png"/></td>
+                    </tr>
+                <tr>
+                    <td><img id="display_image_eng_4" src="../static/display_images/english/4/0.png"/></td>
+                    <td><img id="display_image_eng_5" src="../static/display_images/english/5/0.png"/></td>
+                    <td><img id="display_image_eng_6" src="../static/display_images/english/6/0.png"/></td>
+                </tr>
+                <tr>
+                    <td><img id="display_image_eng_7" src="../static/display_images/english/7/0.png"/></td>
+                    <td><img id="display_image_eng_8" src="../static/display_images/english/8/0.png"/></td>
+                    <td><img id="display_image_eng_9" src="../static/display_images/english/9/0.png"/></td>
+                </tr>
+                <tr>
+                   <td></td>
+                   <td><img id="display_image_eng_0" src="../static/display_images/english/0/0.png"/></td>
+                   <td></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td align="center">
+            <button id="button_predict" style="font-size: 100%" onClick="processimage()">
+                    Predict
+            </button>
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td align="center">
+            <h3 id="predict_result" style="font-size: 120%"></h3>
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<footer style="font-size: 100%"> <b> &lt;love&gt; Made by Shivam on Heroku &lt;/love&gt; </b> </footer>
+</center>
 
-	/*#button_predict{*/
-        /*width: 120px;*/
-        /*height: 35px;*/
-    /*}*/
-    /*.drawing-board-control-navigation-back{*/
-        /*width: 50px;*/
-        /*height: 50px;*/
-    /*}*/
-    /*.drawing-board-control-navigation-forward{*/
-        /*width: 50px;*/
-        /*height: 50px;*/
-    /*}*/
-    /*.drawing-board-control-navigation-reset{*/
-        /*width: 50px;*/
-        /*height: 50px;*/
-    /*}*/
-</style>
 
 <script>
 var board5 = new DrawingBoard.Board('Board5', {
@@ -62,7 +110,7 @@ var board5 = new DrawingBoard.Board('Board5', {
          'Color' ,
 	    { Size: { type: "dropdown", dropdownValues: [20, 25, 30] } },
 		{ Navigation: { back: true, forward: true } },
-//        { DrawingMode: { filler: false } },
+        { DrawingMode: { filler: false, pencil : false } },
 	],
 	webStorage: 'false'
 });
@@ -76,7 +124,10 @@ function processimage(){
     $.ajax({url: "/predict",
         type: "POST", data: JSON.stringify({'image': final_image}),
         contentType: 'application/json',
-        error: (function(){$('#predict_result').text("Server is under Load, Please try again.")}),
+        error: (function(){
+            $('#predict_result').text("Please try again")
+            document.getElementById("button_predict").disabled = false;
+        }),
         success: function(result){
             $('#predict_result').text("I think you drew : " + result[0] + " in " + result[1])
             document.getElementById("button_predict").disabled = false;
@@ -84,8 +135,97 @@ function processimage(){
         }});
     };
 </script>
-    <footer style="font-size: 100%"> <b> &lt;love&gt; Made by Shivam on Heroku &lt;/love&gt; </b> </footer>
-    </div>
-</center>
+
+
+<script>
+    var hindi_image_array_0 = new Array();
+    var hindi_image_array_1 = new Array();
+    var hindi_image_array_2 = new Array();
+    var hindi_image_array_3 = new Array();
+    var hindi_image_array_4 = new Array();
+    var hindi_image_array_5 = new Array();
+    var hindi_image_array_6 = new Array();
+    var hindi_image_array_7 = new Array();
+    var hindi_image_array_8 = new Array();
+    var hindi_image_array_9 = new Array();
+
+    var eng_image_array_0 = new Array();
+    var eng_image_array_1 = new Array();
+    var eng_image_array_2 = new Array();
+    var eng_image_array_3 = new Array();
+    var eng_image_array_4 = new Array();
+    var eng_image_array_5 = new Array();
+    var eng_image_array_6 = new Array();
+    var eng_image_array_7 = new Array();
+    var eng_image_array_8 = new Array();
+    var eng_image_array_9 = new Array();
+
+    for (var i = 0; i < 10; i++) {
+        hindi_image_array_0.push("../static/display_images/hindi/0/" + i + ".png");
+        hindi_image_array_1.push("../static/display_images/hindi/1/" + i + ".png");
+        hindi_image_array_2.push("../static/display_images/hindi/2/" + i + ".png");
+        hindi_image_array_3.push("../static/display_images/hindi/3/" + i + ".png");
+        hindi_image_array_4.push("../static/display_images/hindi/4/" + i + ".png");
+        hindi_image_array_5.push("../static/display_images/hindi/5/" + i + ".png");
+        hindi_image_array_6.push("../static/display_images/hindi/6/" + i + ".png");
+        hindi_image_array_7.push("../static/display_images/hindi/7/" + i + ".png");
+        hindi_image_array_8.push("../static/display_images/hindi/8/" + i + ".png");
+        hindi_image_array_9.push("../static/display_images/hindi/9/" + i + ".png");
+
+        eng_image_array_0.push("../static/display_images/english/0/" + i + ".png");
+        eng_image_array_1.push("../static/display_images/english/1/" + i + ".png");
+        eng_image_array_2.push("../static/display_images/english/2/" + i + ".png");
+        eng_image_array_3.push("../static/display_images/english/3/" + i + ".png");
+        eng_image_array_4.push("../static/display_images/english/4/" + i + ".png");
+        eng_image_array_5.push("../static/display_images/english/5/" + i + ".png");
+        eng_image_array_6.push("../static/display_images/english/6/" + i + ".png");
+        eng_image_array_7.push("../static/display_images/english/7/" + i + ".png");
+        eng_image_array_8.push("../static/display_images/english/8/" + i + ".png");
+        eng_image_array_9.push("../static/display_images/english/9/" + i + ".png");
+    }
+
+    window.onload = function() {
+
+    setInterval(function() {
+        changeImage()
+    },500);
+    }
+
+    function changeImage() {
+        document.getElementById('display_image_hindi_0').src = hindi_image_array_0[x];
+        document.getElementById('display_image_hindi_1').src = hindi_image_array_1[x];
+        document.getElementById('display_image_hindi_2').src = hindi_image_array_2[x];
+        document.getElementById('display_image_hindi_3').src = hindi_image_array_3[x];
+        document.getElementById('display_image_hindi_4').src = hindi_image_array_4[x];
+        document.getElementById('display_image_hindi_5').src = hindi_image_array_5[x];
+        document.getElementById('display_image_hindi_6').src = hindi_image_array_6[x];
+        document.getElementById('display_image_hindi_7').src = hindi_image_array_7[x];
+        document.getElementById('display_image_hindi_8').src = hindi_image_array_8[x];
+        document.getElementById('display_image_hindi_9').src = hindi_image_array_9[x];
+
+        document.getElementById('display_image_eng_0').src = eng_image_array_0[x];
+        document.getElementById('display_image_eng_1').src = eng_image_array_1[x];
+        document.getElementById('display_image_eng_2').src = eng_image_array_2[x];
+        document.getElementById('display_image_eng_3').src = eng_image_array_3[x];
+        document.getElementById('display_image_eng_4').src = eng_image_array_4[x];
+        document.getElementById('display_image_eng_5').src = eng_image_array_5[x];
+        document.getElementById('display_image_eng_6').src = eng_image_array_6[x];
+        document.getElementById('display_image_eng_7').src = eng_image_array_7[x];
+        document.getElementById('display_image_eng_8').src = eng_image_array_8[x];
+        document.getElementById('display_image_eng_9').src = eng_image_array_9[x];
+
+        if (x < 8) {
+            x += 1;
+        } else {
+            x = 0;
+        }
+    }
+
+</script>
+<style>
+    .drawing-board-control-download-button {
+        display: none;
+    }
+</style>
 </body>
 </html>

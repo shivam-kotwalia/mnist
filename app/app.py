@@ -50,6 +50,7 @@ def predict():
                                             image_size=28,
                                             predict_type="1_crop")
         prediction = np.argmax(predictions)
+        print("main prediction : ", prediction)
         if prediction > 9:
             prediction = prediction -10
             main_result = {"prediction": prediction, "language": "Hindi"}
