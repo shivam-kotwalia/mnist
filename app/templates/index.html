@@ -2,13 +2,14 @@
 <html lang="en">
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="text/javascript" src="../static/jquery.js"></script>
     <script type="text/javascript" src="../static/drawingboard.min.js"></script>
     <link rel="stylesheet" href="../static/drawingboard.min.css">
     <title>Numerical Recognization </title>
 <script>
-    var x = 0;
+    var x = 0
+    var model = (window.location.pathname).split("/")[1];
 </script>
 </head>
 
@@ -16,13 +17,13 @@
 <body>
 <center>
         <h1 style="font-size: 150%;"><u>Numerical Recognization <br/>by Deep Learning</u></h1>
-        <h2 style="font-size: 100%"> Draw your Digit (English/Hindi)<br/> on Canvas</h2>
+        <h2 id="subtitle" style="font-size: 100%">Draw your Character in Hindi </h2>
 
 <table>
     <tr>
         <td>
             <center><b>"Hindi"</b></center>
-            <table >
+            <table id="left_bar" style="display: none">
                 <tr>
                     <td><img id="display_image_hindi_1" src="../static/display_images/hindi/1/0.png"/></td>
                     <td ><img id="display_image_hindi_2" src="../static/display_images/hindi/2/0.png"/></td>
@@ -52,7 +53,7 @@
         <td></td>
         <td>
             <center><b>"English"</b></center>
-            <table>
+            <table id="right_bar" style="display: none">
                 <tr>
                     <td><img id="display_image_eng_1" src="../static/display_images/english/1/0.png"/></td>
                     <td ><img id="display_image_eng_2" src="../static/display_images/english/2/0.png"/></td>
@@ -128,8 +129,10 @@ function processimage(){
     //document.getElementsByClassName("drawing-board-control-download-button")[0].click();
     var final_image = board5.canvas.toDataURL("image/octet-stream");
     document.getElementById("button_predict").disabled = true;
+    console.log(model)
     $.ajax({url: "/predict",
-        type: "POST", data: JSON.stringify({'image': final_image}),
+        type: "POST",
+        data: JSON.stringify({'image': final_image, 'model': model}),
         contentType: 'application/json',
         error: (function(){
             $('#predict_result').text("Please try again")
@@ -145,57 +148,51 @@ function processimage(){
 
 
 <script>
-    var hindi_image_array_0 = new Array();
-    var hindi_image_array_1 = new Array();
-    var hindi_image_array_2 = new Array();
-    var hindi_image_array_3 = new Array();
-    var hindi_image_array_4 = new Array();
-    var hindi_image_array_5 = new Array();
-    var hindi_image_array_6 = new Array();
-    var hindi_image_array_7 = new Array();
-    var hindi_image_array_8 = new Array();
-    var hindi_image_array_9 = new Array();
 
-    var eng_image_array_0 = new Array();
-    var eng_image_array_1 = new Array();
-    var eng_image_array_2 = new Array();
-    var eng_image_array_3 = new Array();
-    var eng_image_array_4 = new Array();
-    var eng_image_array_5 = new Array();
-    var eng_image_array_6 = new Array();
-    var eng_image_array_7 = new Array();
-    var eng_image_array_8 = new Array();
-    var eng_image_array_9 = new Array();
+        var hindi_image_array_0 = [], hindi_image_array_1 = [], hindi_image_array_2 = []
+        var hindi_image_array_3 = [], hindi_image_array_4 = [], hindi_image_array_5 = []
+        var hindi_image_array_6 = [], hindi_image_array_7 = [], hindi_image_array_8 = []
+        var hindi_image_array_9 = []
 
-    for (var i = 0; i < 10; i++) {
-        hindi_image_array_0.push("../static/display_images/hindi/0/" + i + ".png");
-        hindi_image_array_1.push("../static/display_images/hindi/1/" + i + ".png");
-        hindi_image_array_2.push("../static/display_images/hindi/2/" + i + ".png");
-        hindi_image_array_3.push("../static/display_images/hindi/3/" + i + ".png");
-        hindi_image_array_4.push("../static/display_images/hindi/4/" + i + ".png");
-        hindi_image_array_5.push("../static/display_images/hindi/5/" + i + ".png");
-        hindi_image_array_6.push("../static/display_images/hindi/6/" + i + ".png");
-        hindi_image_array_7.push("../static/display_images/hindi/7/" + i + ".png");
-        hindi_image_array_8.push("../static/display_images/hindi/8/" + i + ".png");
-        hindi_image_array_9.push("../static/display_images/hindi/9/" + i + ".png");
+        var eng_image_array_0 = [], eng_image_array_1 = [], eng_image_array_2 = []
+        var eng_image_array_3 = [], eng_image_array_4 = [], eng_image_array_5 = []
+        var eng_image_array_6 = [], eng_image_array_7 = [], eng_image_array_8 = []
+        var eng_image_array_9 = []
 
-        eng_image_array_0.push("../static/display_images/english/0/" + i + ".png");
-        eng_image_array_1.push("../static/display_images/english/1/" + i + ".png");
-        eng_image_array_2.push("../static/display_images/english/2/" + i + ".png");
-        eng_image_array_3.push("../static/display_images/english/3/" + i + ".png");
-        eng_image_array_4.push("../static/display_images/english/4/" + i + ".png");
-        eng_image_array_5.push("../static/display_images/english/5/" + i + ".png");
-        eng_image_array_6.push("../static/display_images/english/6/" + i + ".png");
-        eng_image_array_7.push("../static/display_images/english/7/" + i + ".png");
-        eng_image_array_8.push("../static/display_images/english/8/" + i + ".png");
-        eng_image_array_9.push("../static/display_images/english/9/" + i + ".png");
-    }
+        for (var i = 0; i < 10; i++) {
+            hindi_image_array_0.push("../static/display_images/hindi/0/" + i + ".png");
+            hindi_image_array_1.push("../static/display_images/hindi/1/" + i + ".png");
+            hindi_image_array_2.push("../static/display_images/hindi/2/" + i + ".png");
+            hindi_image_array_3.push("../static/display_images/hindi/3/" + i + ".png");
+            hindi_image_array_4.push("../static/display_images/hindi/4/" + i + ".png");
+            hindi_image_array_5.push("../static/display_images/hindi/5/" + i + ".png");
+            hindi_image_array_6.push("../static/display_images/hindi/6/" + i + ".png");
+            hindi_image_array_7.push("../static/display_images/hindi/7/" + i + ".png");
+            hindi_image_array_8.push("../static/display_images/hindi/8/" + i + ".png");
+            hindi_image_array_9.push("../static/display_images/hindi/9/" + i + ".png");
+
+            eng_image_array_0.push("../static/display_images/english/0/" + i + ".png");
+            eng_image_array_1.push("../static/display_images/english/1/" + i + ".png");
+            eng_image_array_2.push("../static/display_images/english/2/" + i + ".png");
+            eng_image_array_3.push("../static/display_images/english/3/" + i + ".png");
+            eng_image_array_4.push("../static/display_images/english/4/" + i + ".png");
+            eng_image_array_5.push("../static/display_images/english/5/" + i + ".png");
+            eng_image_array_6.push("../static/display_images/english/6/" + i + ".png");
+            eng_image_array_7.push("../static/display_images/english/7/" + i + ".png");
+            eng_image_array_8.push("../static/display_images/english/8/" + i + ".png");
+            eng_image_array_9.push("../static/display_images/english/9/" + i + ".png");
+        }
+
 
     window.onload = function() {
-
-    setInterval(function() {
-        changeImage()
-    },500);
+        if (model == ""){
+            document.getElementById("left_bar").style.display = "table";
+            document.getElementById("right_bar").style.display = "table";
+            document.getElementById("subtitle").textContent = "Draw your Digit (English/Hindi)";
+            setInterval(function() {
+                changeImage()
+            },500);
+        }
     }
 
     function changeImage() {

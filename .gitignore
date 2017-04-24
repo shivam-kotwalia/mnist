@@ -1,8 +1,11 @@
-data_mnist/*
-MNIST_data/*
-devnagri_data/*
-data_devnagri/*
-tefla-summary-devnagri/*
+tefla-summary-devnagri
 data_all/*
 app/*.pyc
 app/services/*.pyc
+app/services/weights/*
+app/services/train.log
+app/services/run_script_logs.pkl
+.idea/
+app/services/weights/
+devnagri_char_save_images.py
+devnagri_num_save_images.py

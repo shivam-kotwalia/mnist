@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import base64, os, uuid, services
 import numpy as np
 from PIL import Image
@@ -8,10 +10,15 @@ from config import Config
 app = Flask(__name__)
 conf = Config()
 
-
-
 @app.route("/")
 def mainpage():
+    if request.method == "POST":
+        print(request.form)
+    if request.method == "GET":
+        return render_template("index.html")
+
+@app.route("/hindi")
+def hindipage():
     if request.method == "POST":
         print(request.form)
     if request.method == "GET":
@@ -22,10 +29,19 @@ def mainpage():
 def predict():
     if request.method == "POST":
         image_data64 = request.json['image']
-        # if request.json['language'] == 'english':
-        #     weights = conf.mnist_weights
-        # else:
-        #     weights = conf.devnagri_weights
+        print(request.json['model'])
+        if request.json['model'] == 'hindi':
+            weights = conf.devnagri_char_weights
+            devnag_char_dict = {"0": "क", "1": "ख", "2": "ग", "3": "घ", "4": "ङ", \
+								"5": "च", "6": "छ", "7":"ज", "8":"झ", "9":"ञ", \
+								"10":"ट","11":"ठ","12":"ड","13":"ढ","14":"ण", \
+								"15":"त", "16":"थ", "17":"द", "18":"ध","19":"न", \
+								"20":"प","21":"फ","22":"ब","23":"भ", "24":"म", \
+								"25":"य", "26":"र","27":"ल","28":"व", \
+								"29":"श","30":"ष","31":"स", "32":"ह", \
+								"33":"क्ष", "34":"त्र","35":"ज्ञ"}						
+        else:
+            weights = conf.all_weights
         image_data64 = image_data64.split(",")[1]
         image_filename = str(uuid.uuid4()) + ".tiff"
 
@@ -43,7 +59,7 @@ def predict():
                                             model_def=services.mnist_model,
                                             output_layer="predictions",
                                             cnf=services.mnist_cnf.cnf,
-                                            weights_from=conf.all_weights,
+                                            weights_from=weights,
                                             images=image_path_array,
                                             sync=True,
                                             convert=False,
@@ -51,13 +67,14 @@ def predict():
                                             predict_type="1_crop")
         prediction = np.argmax(predictions)
         print("main prediction : ", prediction)
-        if prediction > 9:
-            prediction = prediction -10
-            main_result = {"prediction": prediction, "language": "Hindi"}
-            main_result = [prediction,"Hindi"]
+        if request.json['model'] == 'hindi':
+            main_result = [devnag_char_dict[str(prediction)], "Hindi"]
         else:
-            main_result = {"prediction": prediction, "language": "English"}
-            main_result = [prediction,"English"]            
+            if prediction > 9:
+                prediction = prediction -10
+                main_result = [prediction,"Hindi"]
+            else:
+                main_result = [prediction,"English"]
         print("%s in %s" % (main_result[0], main_result[1]))
 
         #Cleaning Images
