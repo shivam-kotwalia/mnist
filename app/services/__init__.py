@@ -1,2 +1,3 @@
-import mnist_model
+import mnist_model_char_hindi
+import mnist_model_num_all
 import mnist_cnf
