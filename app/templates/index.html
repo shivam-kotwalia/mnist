@@ -22,7 +22,7 @@
 <table>
     <tr>
         <td>
-            <center><b>"Hindi"</b></center>
+            <p id="left_bar_title" style="display: none"><center><b>"Hindi"</b></center></td></p>
             <table id="left_bar" style="display: none">
                 <tr>
                     <td><img id="display_image_hindi_1" src="../static/display_images/hindi/1/0.png"/></td>
@@ -52,7 +52,7 @@
         </td>
         <td></td>
         <td>
-            <center><b>"English"</b></center>
+            <p id="right_bar_title" style="display : none"><center><b>"English"</b></center></td></p>
             <table id="right_bar" style="display: none">
                 <tr>
                     <td><img id="display_image_eng_1" src="../static/display_images/english/1/0.png"/></td>
@@ -189,6 +189,8 @@ function processimage(){
             document.getElementById("left_bar").style.display = "table";
             document.getElementById("right_bar").style.display = "table";
             document.getElementById("subtitle").textContent = "Draw your Digit (English/Hindi)";
+            document.getElementById("right_bar_title").style.display = "";
+            document.getElementById("left_bar_title").style.display = "";
             setInterval(function() {
                 changeImage()
             },500);
