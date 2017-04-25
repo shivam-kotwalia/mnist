@@ -30,7 +30,7 @@ def hindipage():
 def predict():
     if request.method == "POST":
         image_data64 = request.json['image']
-        print(request.json['model'])
+        #print(request.json['model'])
         if request.json['model'] == 'hindi':
             weights = conf.devnagri_char_weights
             model_file = services.mnist_model_char_hindi
@@ -69,7 +69,6 @@ def predict():
                                             image_size=28,
                                             predict_type="1_crop")
         prediction = np.argmax(predictions)
-        print("main prediction : ", prediction)
         if request.json['model'] == 'hindi':
             main_result = [devnag_char_dict[str(prediction)], "Hindi"]
         else:
