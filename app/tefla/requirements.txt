@@ -11,7 +11,7 @@
 # Then install tensorflow r1.0
 numpy==1.12.0
 matplotlib==1.5.3
-scipy==0.18.0
+scipy==1.10.0
 pandas==0.18.1
 SharedArray==1.0
 click==6.6
